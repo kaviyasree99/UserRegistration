@@ -19,6 +19,9 @@ public class UserRegistration {
         return validation;
     }
 
+    /*
+      EmailID Validation method
+     */
     public static boolean emailValidation(String Email){
         String regexEmail = "^[0-9 A-Z a-z]+(([._+-]*)[0-9A-Za-z]+)*@[0-9 A-Z a-z]+.[a-z]{2,4}([.][a-z]{2,3})*$";
         Pattern p = Pattern.compile(regexEmail);
@@ -30,6 +33,20 @@ public class UserRegistration {
 
     }
 
+    /*
+      MobileNumber Validation method
+     */
+    public static boolean mobileNumValidation(String MobileNum ){
+        String regexMobileNum = "^[9][1]\\s[6-9]{1}[0-9]{9}$";
+        Pattern p = Pattern.compile(regexMobileNum);
+        if (MobileNum == null){
+            return false;
+        }
+        Matcher m =p.matcher(MobileNum);
+
+        return m.matches();
+
+    }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Registration System");
@@ -60,6 +77,15 @@ public class UserRegistration {
             System.out.println(EmailID + " is Valid email");
         } else {
             System.out.println(EmailID + " is Invalid email");
+        }
+
+        //Mobile Number
+        System.out.println("Please Enter the mobile number with country code 91: ");
+        String MobileNum = input.nextLine();
+        if (mobileNumValidation(MobileNum)) {
+            System.out.println(MobileNum + " is Valid PhoneNumber");
+        } else {
+            System.out.println(MobileNum + " is Invalid PhoneNumber");
         }
     }
 }
