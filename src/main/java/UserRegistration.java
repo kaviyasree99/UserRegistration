@@ -19,6 +19,17 @@ public class UserRegistration {
         return validation;
     }
 
+    public static boolean emailValidation(String Email){
+        String regexEmail = "^[0-9 A-Z a-z]+(([._+-]*)[0-9A-Za-z]+)*@[0-9 A-Z a-z]+.[a-z]{2,4}([.][a-z]{2,3})*$";
+        Pattern p = Pattern.compile(regexEmail);
+        if (Email == null) {
+            return false;
+        }
+        Matcher m = p.matcher(Email);
+        return  m.matches();
+
+    }
+
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Registration System");
@@ -40,6 +51,15 @@ public class UserRegistration {
             System.out.println(LastName + " is Valid name");
         } else {
             System.out.println(LastName + " is Invalid name");
+        }
+
+        //Email
+        System.out.println("Please Enter your Email: ");
+        String EmailID = input.nextLine();
+        if (emailValidation(EmailID)) {
+            System.out.println(EmailID + " is Valid email");
+        } else {
+            System.out.println(EmailID + " is Invalid email");
         }
     }
 }
