@@ -45,7 +45,18 @@ public class UserRegistration {
         Matcher m =p.matcher(MobileNum);
 
         return m.matches();
-
+    }
+    /*
+      Password Validation method
+     */
+    public static boolean PasswordValidation(String password) {
+        String regexPassword = "[a-z A-Z]{8,}$";
+        Pattern p = Pattern.compile(regexPassword);
+        if (password == null){
+            return false;
+        }
+        Matcher m = p.matcher(password);
+        return m.matches();
     }
 
     public static void main(String[] args) {
@@ -86,6 +97,16 @@ public class UserRegistration {
             System.out.println(MobileNum + " is Valid PhoneNumber");
         } else {
             System.out.println(MobileNum + " is Invalid PhoneNumber");
+        }
+
+        //Password
+        System.out.println("please enter the Password");
+        String Password = input.nextLine();
+        System.out.println(PasswordValidation(Password));
+        if (PasswordValidation(Password)) {
+            System.out.println(Password + " is Valid Password");
+        } else {
+            System.out.println(Password + " is Invalid Password");
         }
     }
 }
