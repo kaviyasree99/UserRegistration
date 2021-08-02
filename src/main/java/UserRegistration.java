@@ -50,7 +50,7 @@ public class UserRegistration {
       Password Validation method
      */
     public static boolean PasswordValidation(String password) {
-        String regexPassword = "[a-z A-Z]{8,}$";
+        String regexPassword = "^(?=.*[a-z])(?=.*[A-Z]).{8,}$";
         Pattern p = Pattern.compile(regexPassword);
         if (password == null){
             return false;
