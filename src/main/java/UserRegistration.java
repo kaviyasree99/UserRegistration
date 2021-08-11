@@ -1,112 +1,84 @@
-import java.util.Scanner;
-import java.util.regex.Matcher;
+package com.bridgelabz;
 import java.util.regex.Pattern;
-
+/*
+Program Of UserRegistration By Using Junit Testing
+ */
 public class UserRegistration {
+    private Pattern pattern;//Declaring The Pattern variable as private
     /*
-     FirstName Validation method
+    Declaring Validate First Name Method
+    The Pattern Defines The First Name Starts With Capital Letter
+    The Name Should Have Min 3 Words
      */
-    public static boolean firstNameValidation(String FirstName) {
-        boolean validation = Pattern.matches("^[A-Z][a-z]{2,}", FirstName);
-        return validation;
-    }
-
-    /*
-      LastName Validation method
-     */
-    public static boolean lastNameValidation(String LastName) {
-        boolean validation = Pattern.matches("^[A-Z][a-z]{2,}", LastName);
-        return validation;
-    }
-
-    /*
-      EmailID Validation method
-     */
-    public static boolean emailValidation(String Email){
-        String regexEmail = "^[0-9 A-Z a-z]+(([._+-]*)[0-9A-Za-z]+)*@[0-9 A-Z a-z]+.[a-z]{2,4}([.][a-z]{2,3})*$";
-        Pattern p = Pattern.compile(regexEmail);
-        if (Email == null) {
-            return false;
+    public boolean validateFirstName(String firstName) throws UserRegistrationException {
+        String Name_Pattern = "^[A-Z]{1}[a-z]{2,}$";//The First Letter With Cap And Min 3 Letters
+        boolean match =  pattern.matches(Name_Pattern, firstName);//Matching The Name Pattern And FirstName And Returning It
+        if(match) {
+            System.out.println("First Name Is Valid");
+        } else{
+            throw new UserRegistrationException("Invalid First Name");
         }
-        Matcher m = p.matcher(Email);
-        return  m.matches();
-
-    }
-
-    /*
-      MobileNumber Validation method
-     */
-    public static boolean mobileNumValidation(String MobileNum ){
-        String regexMobileNum = "^[9][1]\\s[6-9]{1}[0-9]{9}$";
-        Pattern p = Pattern.compile(regexMobileNum);
-        if (MobileNum == null){
-            return false;
-        }
-        Matcher m =p.matcher(MobileNum);
-
-        return m.matches();
+        return match;
     }
     /*
-      Password Validation method
-     */
-    public static boolean PasswordValidation(String password) {
-        String regexPassword = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&-+=()]).{8,}$";
-        Pattern p = Pattern.compile(regexPassword);
-        if (password == null){
-            return false;
+    Declaring Validate Last Name Method
+    The Pattern Defines The Last Name Starts With Capital Letter
+    The Name Should Have Min 3 Words
+    */
+    public boolean validateLastName(String LastName) throws UserRegistrationException {
+        String Name_pattern = "^[A-Z]{1}[a-z]{2,}$";//The First Letter With Cap And Min 3 Letters
+        boolean match = pattern.matches(Name_pattern , LastName);//Matching0 The Name Pattern And LastName And Returning It.
+        if(match) {
+            System.out.println("Last Name Is Valid");
+        } else{
+            throw new UserRegistrationException("Invalid Last Name");
         }
-        Matcher m = p.matcher(password);
-        return m.matches();
+        return match;
     }
-
-    public static void main(String[] args) {
-        System.out.println("Welcome to Employee Registration System");
-        Scanner input = new Scanner(System.in);
-
-        //FirstName
-        System.out.print("Please Enter firstname: ");
-        String FirstName = input.nextLine();
-        if (firstNameValidation(FirstName)) {
-            System.out.println(FirstName + " is Valid name");
-        } else {
-            System.out.println(FirstName + " is Invalid name");
+    /*
+    Declaring Valid Email Method
+    The Email Should Starts With Small Letter
+    Here Declaring The Email Pattern
+    */
+    public boolean validateemail(String Email) throws UserRegistrationException {
+        String Email_pattern = "[a-z][a-zA-Z0-9]+([._+#-][a-zA-Z0-9]+)*@[a-zA-Z]{5}+.[a-zA-Z]{2,3}(.[a-zA-Z]{2})?$";
+        boolean match = pattern.matches(Email_pattern,Email);//Matching The Email Pattern And Email And Returning It.
+        if(match) {
+            System.out.println("Email Is Valid");
+        } else{
+            throw new UserRegistrationException("Invalid Email Id");
         }
+        return match;
 
-        //LastName
-        System.out.println("Please Enter your lastname: ");
-        String LastName = input.nextLine();
-        if (lastNameValidation(LastName)) {
-            System.out.println(LastName + " is Valid name");
-        } else {
-            System.out.println(LastName + " is Invalid name");
+    }
+    /*
+    Declaring Valid Phone Number Method
+    The Phone Number Pattern Contain The Phone Should Have 10 Numbers
+    Here Declaring The Phone Number Pattern
+    */
+    public boolean validatePhoneNumber(String PhoneNumber) throws UserRegistrationException {
+        String Number_pattern = "^[9][1][ ][6-9]{1}[0-9]{9}$";
+        boolean match = pattern.matches(Number_pattern, PhoneNumber);//Matching The Phone Number Pattern And Phone Number And Returning It
+        if(match) {
+            System.out.println("Phone Number Is Valid");
+        } else{
+            throw new UserRegistrationException("Invalid Phone Number");
         }
-
-        //Email
-        System.out.println("Please Enter your Email: ");
-        String EmailID = input.nextLine();
-        if (emailValidation(EmailID)) {
-            System.out.println(EmailID + " is Valid email");
-        } else {
-            System.out.println(EmailID + " is Invalid email");
+        return match;
+    }
+    /*
+    Declaring Valid Password Method
+    The Password Should Contain The Minimum Of 8 Characters
+    Here Declaring The Password Pattern
+    */
+    public boolean validatePassword(String Password) throws UserRegistrationException {
+        String Password_pattern = "^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%!]).{8,}";
+        boolean match= pattern.matches(Password_pattern,Password);
+        if(match) {
+            System.out.println("Password Is Valid");
+        } else{
+            throw new UserRegistrationException("Invalid Password");
         }
-
-        //Mobile Number
-        System.out.println("Please Enter the mobile number with country code 91: ");
-        String MobileNum = input.nextLine();
-        if (mobileNumValidation(MobileNum)) {
-            System.out.println(MobileNum + " is Valid PhoneNumber");
-        } else {
-            System.out.println(MobileNum + " is Invalid PhoneNumber");
-        }
-
-        //Password
-        System.out.println("please enter the Password");
-        String Password = input.nextLine();
-        System.out.println(PasswordValidation(Password));
-        if (PasswordValidation(Password)) {
-            System.out.println(Password + " is Valid Password");
-        } else {
-            System.out.println(Password + " is Invalid Password");
-        }
+        return match;
     }
 }
